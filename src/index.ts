@@ -27,7 +27,7 @@ app.get('/', checkAuth, async (req: Request, res: Response) => {
             };
         }))
     } else {
-        res.status(400).send('No data found.')
+        res.status(204).send('No data found.')
     }
 
 })
@@ -51,7 +51,7 @@ app.delete('/:code', async (req: Request, res: Response) => {
 app.post('/', async (req: Request, res: Response) => {
     if (req.body.redirectURL && isValidLink({ string: req.body.redirectURL })) {
         let urlData = await urls.create({ urlCode: generateUniqueId({ length: 10 }), redirectURL: req.body.redirectURL })
-        res.status(200).send(urlData.urlCode)
+        res.status(201).send(urlData.urlCode)
     } else {
         res.status(400).send('Invalid redirect URL provided')
     }
